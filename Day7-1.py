@@ -3,10 +3,8 @@ def do_step(prev, current):
     for i in range(0, len(prev)):
         if prev[i] == 'S' and current[i] == '^':
             splits = splits + 1
-            if i > 0:
-                current = current[:i-1] + 'S' + current[i:]
-            if i < len(current) -1:
-                current = current[:i+1] + 'S' + current[i+2:]
+            current = current[:i-1] + 'S' + current[i:]
+            current = current[:i+1] + 'S' + current[i+2:]
         elif prev[i] == 'S' and current[i] == '.':
             current = current[:i] + 'S' + current[i+1:]
     return splits, current
