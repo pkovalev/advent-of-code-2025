@@ -34,5 +34,5 @@ for line in lines:
         nodes[parsed[0]] = Node()
     for output in outputs:
         nodes[parsed[0]].linked.add(output)
-#print(f"Part 1: {ways_out(nodes['you'])}")
+print(f"Part 1: {ways_out(nodes['you'])}")
 print(f"Part 2: {ways_out_via_fft_dac(nodes['svr'], False, False)}")
