@@ -1,3 +1,6 @@
+from functools import cache
+
+
 class Node:
     def __init__(self):
         self.linked: set[str] = set()
@@ -8,6 +11,16 @@ def ways_out(node: Node) -> int:
         if way == 'out':
             ways = ways + 1
         ways = ways + ways_out(nodes[way])
+    return ways
+
+@cache
+def ways_out_via_fft_dac(node: Node, fft_found: bool, dac_found: bool) -> int:
+    ways: int = 0
+    for way in node.linked:
+        if way == 'out':
+            if fft_found and dac_found:
+                ways = ways + 1
+        ways = ways + ways_out_via_fft_dac(nodes[way], fft_found or way == 'fft', dac_found or way == 'dac')
     return ways
 
 cnt = 0
@@ -21,4 +34,5 @@ for line in lines:
         nodes[parsed[0]] = Node()
     for output in outputs:
         nodes[parsed[0]].linked.add(output)
-print(f"Part 1: {ways_out(nodes['you'])}")
+#print(f"Part 1: {ways_out(nodes['you'])}")
+print(f"Part 2: {ways_out_via_fft_dac(nodes['svr'], False, False)}")
